@@ -1,6 +1,6 @@
 #!/bin/sh
 
-CONFIG="config.cfg"
+CONFIG="/tmp/config.cfg"
 
 load_config() {
     if [ ! -e "${CONFIG}" ]; then
