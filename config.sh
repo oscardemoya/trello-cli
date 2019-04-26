@@ -1,10 +1,12 @@
 #!/bin/sh
 
-CONFIG="/tmp/config.cfg"
+FOLDER="$HOME/.trello"
+CONFIG="$FOLDER/config.cfg"
 
 load_config() {
     if [ ! -e "${CONFIG}" ]; then
         # Set default variable values
+        mkdir $FOLDER
         touch $CONFIG
         echo "USERNAME=\"\"\nBOARD_ID=\"\"\n" >> $CONFIG
     fi
