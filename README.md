@@ -40,7 +40,7 @@ chmod +x uninstall.sh
 
 ## Setup
 
-Run `trello init` into a directory where you want to link to a trello board. This command will prompt you for the required parameters. The first time you run it it will ask you the Trello app keys. For next runs in different folders it will only ask for the Trello `username` and `board` short link for the proyect you want to setup in that directory.
+Run `trello init` into a directory where you want to link to a trello board. This command will prompt you for the required parameters. The first time you run it it will ask you the Trello [app keys](https://trello.com/app-key). For next runs in different folders it will only ask for the Trello `username` and `board short link` for the proyect you want to setup in that directory.
 
 ## License
 
