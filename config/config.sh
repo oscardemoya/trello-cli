@@ -2,7 +2,7 @@
 
 CONFIG_FOLDER=".trello"
 CONFIG_FILE="$CONFIG_FOLDER/config.cfg"
-CONFIG_DEFAULTS="$CURRENT_DIR/config/config.cfg.defaults"
+CONFIG_DEFAULTS="$INSTALLATION_FOLDER/config/config.cfg.defaults"
 
 load_config() {
     if [ ! -e "${CONFIG_FILE}" ]; then

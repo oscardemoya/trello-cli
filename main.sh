@@ -1,20 +1,22 @@
 #!/bin/sh
 # requires jq: `brew install jq`
 
-CURRENT_DIR="$(dirname "$0")"
-source "$CURRENT_DIR/utils/colors.sh"
-source "$CURRENT_DIR/utils/print-table.sh"
-source "$CURRENT_DIR/utils/keychain.sh"
-source "$CURRENT_DIR/config/init.sh"
-source "$CURRENT_DIR/config/config.sh"
-source "$CURRENT_DIR/config/select-board.sh"
-source "$CURRENT_DIR/docs/help.sh"
-source "$CURRENT_DIR/api/auth.sh"
-source "$CURRENT_DIR/api/member-boards.sh"
-source "$CURRENT_DIR/api/board-lists.sh"
-source "$CURRENT_DIR/api/list-cards.sh"
-source "$CURRENT_DIR/api/card.sh"
-source "$CURRENT_DIR/api/move-card.sh"
+LOCAL_FOLDER="/usr/local"
+INSTALLATION_FOLDER="$LOCAL_FOLDER/trello"
+
+source "$INSTALLATION_FOLDER/utils/colors.sh"
+source "$INSTALLATION_FOLDER/utils/print-table.sh"
+source "$INSTALLATION_FOLDER/utils/keychain.sh"
+source "$INSTALLATION_FOLDER/config/init.sh"
+source "$INSTALLATION_FOLDER/config/config.sh"
+source "$INSTALLATION_FOLDER/config/select-board.sh"
+source "$INSTALLATION_FOLDER/docs/help.sh"
+source "$INSTALLATION_FOLDER/api/auth.sh"
+source "$INSTALLATION_FOLDER/api/member-boards.sh"
+source "$INSTALLATION_FOLDER/api/board-lists.sh"
+source "$INSTALLATION_FOLDER/api/list-cards.sh"
+source "$INSTALLATION_FOLDER/api/card.sh"
+source "$INSTALLATION_FOLDER/api/move-card.sh"
 
 COMMAND=$1
 PARAM_1=$2
@@ -27,7 +29,7 @@ if [ "$COMMAND" == 'help' ]; then
     show_help "$PARAM_2"
 elif [ "$COMMAND" == 'init' ]; then
     init "$PARAM_1" "$PARAM_2"
-elif [ "$COMMAND" == 'config' ]; then
+elif [ "$COMMAND" == 'info' ]; then
     show_config
 elif [ "$COMMAND" == 'remove' ]; then
     remove_config_file
