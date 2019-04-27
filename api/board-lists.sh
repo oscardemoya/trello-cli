@@ -9,20 +9,20 @@ board_lists() {
     	printf $FORMAT_WHITE "Fetching trello lists..."
     fi
     
-    URL="$BASE_PATH/boards/$BOARD_ID/lists?fields=id%2Cname&cards=none&card_fields=all&filter=open&$AUTH_PARAMS"
+    URL="$BASE_PATH/boards/$BOARD_SHORT_LINK/lists?fields=id%2Cname&cards=none&card_fields=all&filter=open&$AUTH_PARAMS"
     
-    LISTS=$(curl -s $URL | jq -r '.[] | @base64')
+    RESULTS=$(curl -s $URL | jq -r '.[] | @base64')
     CSV="ID,NAME\n"
-    for LIST in $LISTS; do
+    for ITEM in $RESULTS; do
         _jq() {
-            echo ${LIST} | base64 --decode | jq -r ${1}
+            echo ${ITEM} | base64 --decode | jq -r ${1}
         }
-        LIST_ID=$(_jq '.id')
-        LIST_NAME=$(_jq '.name')
-        if [ "$LIST_NAME" == "$SELECTED_LIST_NAME" ]; then
-            SELECTED_LIST_ID=$LIST_ID
+        ITEM_ID=$(_jq '.id')
+        ITEM_NAME=$(_jq '.name')
+        if [ "$ITEM_NAME" == "$SELECTED_LIST_NAME" ]; then
+            SELECTED_LIST_ID=$ITEM_ID
         fi
-        CSV+="$LIST_ID,$LIST_NAME\n"
+        CSV+="$ITEM_ID,$ITEM_NAME\n"
     done
 
     if [ ! -z "$SELECTED_LIST_NAME" -a "$SELECTED_LIST_NAME" != " " ]; then

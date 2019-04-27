@@ -6,7 +6,7 @@ card() {
     
     printf $FORMAT_WHITE "Fetching trello card [#$SELECTED_CARD_NUMBER]..."
     
-    URL="$BASE_PATH/boards/$BOARD_ID/cards/$SELECTED_CARD_NUMBER?fields=all&members=true&member_fields=all&$AUTH_PARAMS"
+    URL="$BASE_PATH/boards/$BOARD_SHORT_LINK/cards/$SELECTED_CARD_NUMBER?fields=all&members=true&member_fields=all&$AUTH_PARAMS"
 
     CARD=$(curl -s $URL | jq -r '. | @base64')
     if [ ! -z "$CARD" -a "$CARD" != " " ]; then
@@ -43,7 +43,7 @@ card_id() {
     
     printf $FORMAT_WHITE "Fetching id for trello card [#$SELECTED_CARD_NUMBER]..."
     
-    URL="$BASE_PATH/boards/$BOARD_ID/cards/$SELECTED_CARD_NUMBER?fields=all&members=true&member_fields=all&$AUTH_PARAMS"
+    URL="$BASE_PATH/boards/$BOARD_SHORT_LINK/cards/$SELECTED_CARD_NUMBER?fields=all&members=true&member_fields=all&$AUTH_PARAMS"
 
     CARD=$(curl -s $URL | jq -r '. | @base64')
     if [ ! -z "$CARD" -a "$CARD" != " " ]; then

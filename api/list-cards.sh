@@ -2,16 +2,22 @@
 # requires jq: `brew install jq`
 
 list_cards() {
+    require_config
+    if [ -z "$1" ]; then
+        printf $FORMAT_RED "List name is required. Usage 'trello cards <list_name>'"
+        exit 1
+    fi
     SELECTED_LIST_NAME=$1
     board_lists "$SELECTED_LIST_NAME"
-    
     printf $FORMAT_WHITE "Fetching trello cards..."
-    
-    URL="$BASE_PATH/lists/$SELECTED_LIST_ID/cards?fields=all&$AUTH_PARAMS"
+    request_list_cards
+}
 
-    LISTS=$(curl -s $URL | jq -r '.[] | @base64')
+request_list_cards() {
+    URL="$BASE_PATH/lists/$SELECTED_LIST_ID/cards?fields=all&$AUTH_PARAMS"
+    RESULTS=$(curl -s $URL | jq -r '.[] | @base64')
     TSV="ID\tNAME"
-    for LIST in $LISTS; do
+    for LIST in $RESULTS; do
         _jq() {
             echo ${LIST} | base64 --decode | jq -r ${1}
         }
@@ -23,7 +29,11 @@ list_cards() {
             TSV+="\n$CARD_NUMBER\t$CARD_NAME"
         fi
     done
+    show_list_cards "$TSV"
+}
 
+show_list_cards() {
+    TSV=$1
     NUMBER_OF_LINES=$(echo "$TSV" | wc -l)
     if [ $NUMBER_OF_LINES -gt 1 ]; then
         echo "$TSV"
