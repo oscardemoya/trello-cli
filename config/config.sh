@@ -18,6 +18,14 @@ show_config() {
     load_config
     printf $FORMAT_WHITE "Default config:"
     CSV="KEY,VALUE\n"
+    if [ ! -z "$API_KEY" ]; then
+        HIDDEN_API_KEY="**********"
+    fi
+    CSV+="API_KEY,$HIDDEN_API_KEY\n"
+    if [ ! -z "$API_TOKEN" ]; then
+        HIDDEN_API_TOKEN="**********"
+    fi  
+    CSV+="API_TOKEN,$HIDDEN_API_TOKEN\n"  
     CSV+="USERNAME,$USERNAME\n"
     CSV+="BOARD_SHORT_LINK,$BOARD_SHORT_LINK\n"
     printTable ',' $CSV
@@ -59,6 +67,17 @@ read_config_file() {
 }
 
 remove_config_file() {
+    read -r -p "⚠️  Do you want to remove your trello app keys from the keychain? [y/N]: " DELETE_KEYS
+    DELETE_KEYS=${DELETE_KEYS:-n}
+	if [[ $DELETE_KEYS =~ ^([yY][eE][sS]|[yY])$ ]]; then
+		echo "Deleting trello app keys..."
+        delete_password "trello-api-key"
+        delete_password "trello-api-token"
+        printf $FORMAT_GREEN "🗑  Trello app keys removed."
+    else
+        printf $FORMAT_GREEN "🔑  Skipped removing Trello app keys."
+	fi
+    echo "Removing trello config files..."
     rm -rf $CONFIG_FOLDER
     printf $FORMAT_GREEN "Trello config files removed."
 }

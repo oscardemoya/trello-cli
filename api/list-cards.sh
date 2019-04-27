@@ -1,5 +1,4 @@
 #!/bin/sh
-# requires jq: `brew install jq`
 
 list_cards() {
     require_config

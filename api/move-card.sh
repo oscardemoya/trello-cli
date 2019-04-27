@@ -1,5 +1,4 @@
 #!/bin/sh
-# requires jq: `brew install jq`
 
 move_card() {
     SELECTED_LIST_NAME=$1

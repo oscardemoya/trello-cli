@@ -1,5 +1,4 @@
 #!/bin/sh
-# requires jq: `brew install jq`
 
 member_boards() {
     require_username
@@ -50,7 +49,7 @@ show_member_boards() {
         fi
     else
         if [ $NUMBER_OF_LINES -gt 1 ]; then
-            echo "$CSV" | column -t -s,
+            printTable ',' "$CSV"
         else
             printf $FORMAT_RED "No boards not found." 
         fi

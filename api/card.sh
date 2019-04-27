@@ -1,5 +1,4 @@
 #!/bin/sh
-# requires jq: `brew install jq`
 
 card() {
     SELECTED_CARD_NUMBER=$1

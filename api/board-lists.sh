@@ -1,5 +1,4 @@
 #!/bin/sh
-# requires jq: `brew install jq`
 
 board_lists() {
     SELECTED_LIST_NAME=$1

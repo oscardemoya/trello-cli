@@ -1,11 +1,17 @@
 #!/bin/sh
-# requires jq: `brew install jq`
 
-get_pw() {
+get_password() {
     security 2>&1 >/dev/null find-generic-password -gs $1 \
     | ruby -e 'print $1 if STDIN.gets =~ /^password: "(.*)"$/'
 }
 
-get_filename() {
-    echo "$1" | sed "s/.*\///" | sed "s/\..*//"
+set_password() {
+    SERVICE_NAME=$1
+    PASSWORD=$2
+    security add-generic-password -a ${USER} -s $SERVICE_NAME -w $PASSWORD
+}
+
+delete_password() {
+    SERVICE_NAME=$1
+    DELETED=$(security -q delete-generic-password -s $SERVICE_NAME)
 }

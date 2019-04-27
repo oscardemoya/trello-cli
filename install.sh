@@ -5,13 +5,22 @@ source "$CURRENT_DIR/utils/colors.sh"
 
 # Copy all files to /usr/local/trello directory
 printf $FORMAT_WHITE "Copying trello files..."
+
+if [ -d "$INSTALLATION_FOLDER" ]; then
+    echo "Removing previous installation..."
+    sudo rm -Rf $INSTALLATION_FOLDER
+fi
+
 echo "Creating installation folder..."
 sudo mkdir $INSTALLATION_FOLDER
 chmod -R u+x *.sh
 echo "Copying files to installation folder..."
 sudo cp -Rp * $INSTALLATION_FOLDER
-echo "Creating 'trello' symlink..."
-ln -s $INSTALLATION_FOLDER/main.sh $SYMLINK
+
+if [ ! -L "$SYMLINK" ]; then
+    echo "Creating 'trello' symlink..."
+    ln -s $INSTALLATION_FOLDER/main.sh $SYMLINK
+fi
 
 echo "Checking for dependencies..."
 # Check to see if Homebrew is installed, and install it if it is not

@@ -1,5 +1,4 @@
 #!/bin/sh
-# requires jq: `brew install jq`
 
 select_board() {
     SELECTED_BOARD_NAME=$1

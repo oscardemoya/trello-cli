@@ -1,3 +1,5 @@
+# Credits: https://github.com/gdbtek/linux-cookbooks/blob/master/libraries/util.bash
+
 function printTable()
 {
     local -r delimiter="${1}"
