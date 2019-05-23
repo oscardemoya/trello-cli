@@ -1,9 +1,9 @@
 #!/bin/sh
 
-list_cards() {
+first_card() {
     require_config
     if [ -z "$1" ]; then
-        printf $FORMAT_RED "List name is required. Usage 'trello cards <list_name>'"
+        printf $FORMAT_RED "List name is required. Usage 'trello first_card_in <list_name>'"
         exit 1
     fi
     SELECTED_LIST_NAME=$1
@@ -12,11 +12,12 @@ list_cards() {
     request_list_cards
 }
 
-request_list_cards() {
+request_first_card() {
     URL="$BASE_PATH/lists/$SELECTED_LIST_ID/cards?fields=all&$AUTH_PARAMS"
     RESULTS=$(curl -s $URL | jq -r '.[] | @base64')
     TSV="ID\tNAME"
-    for ITEM in $RESULTS; do
+    ITEM=$RESULTS[0]
+    if [ ! -z "$ITEM" ]; then
         _jq() {
             echo ${ITEM} | base64 --decode | jq -r ${1}
         }
@@ -24,19 +25,5 @@ request_list_cards() {
         CARD_NUMBER=$(_jq '.idShort')
         CARD_NAME=$(_jq '.name')
         CARD_SUBSCRIBED=$(_jq '.subscribed')
-        if [ "$CARD_SUBSCRIBED" == "true" ]; then
-            TSV+="\n$CARD_NUMBER\t$CARD_NAME"
-        fi
-    done
-    show_list_cards "$TSV"
-}
-
-show_list_cards() {
-    TSV=$1
-    NUMBER_OF_LINES=$(echo "$TSV" | wc -l)
-    if [ $NUMBER_OF_LINES -gt 1 ]; then
-        echo "$TSV"
-    else
-        printf $FORMAT_RED "No cards not found." 
     fi
 }

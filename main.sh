@@ -48,7 +48,7 @@ else
     elif [ "$COMMAND" == 'card_id' ]; then
         card_id "$PARAM_1"
     elif [ "$COMMAND" == 'todo' ]; then
-        list_cards "To Do"
+        todo "$PARAM_1" "$PARAM_2"
     elif [ "$COMMAND" == 'doing' ]; then
         list_cards "Doing"
     elif [ "$COMMAND" == 'move_to' ]; then
