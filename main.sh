@@ -54,7 +54,7 @@ else
     elif [ "$COMMAND" == 'move_to' ]; then
         move_card "$PARAM_1" "$PARAM_2"
     elif [ "$COMMAND" == 'doing' ]; then
-        doing_card "$PARAM_1"
+        doing "$PARAM_1"
     elif [ -z "$COMMAND" ]; then
         member_boards
     else
