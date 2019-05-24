@@ -3,10 +3,10 @@
 todo() {
     TODO_COMMAND=$1
     TODO_CARD_TITLE=$2
-    if [ "$TODO_COMMAND" == 'start' ]; then
+    if [ "$TODO_COMMAND" == 'pop' ]; then
         first_card "To Do"
-    elif [ "$TODO_COMMAND" == 'add' ]; then
-        
+    elif [ "$TODO_COMMAND" == 'push' ]; then
+        first_card "To Do"
     elif [ -z "$TODO_COMMAND" ]; then
         list_cards "To Do"
     else

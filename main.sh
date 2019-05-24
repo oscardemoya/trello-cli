@@ -17,6 +17,8 @@ source "$INSTALLATION_FOLDER/api/board-lists.sh"
 source "$INSTALLATION_FOLDER/api/list-cards.sh"
 source "$INSTALLATION_FOLDER/api/card.sh"
 source "$INSTALLATION_FOLDER/api/move-card.sh"
+source "$INSTALLATION_FOLDER/api/todo.sh"
+source "$INSTALLATION_FOLDER/api/doing.sh"
 
 COMMAND=$1
 PARAM_1=$2
@@ -49,10 +51,10 @@ else
         card_id "$PARAM_1"
     elif [ "$COMMAND" == 'todo' ]; then
         todo "$PARAM_1" "$PARAM_2"
-    elif [ "$COMMAND" == 'doing' ]; then
-        list_cards "Doing"
     elif [ "$COMMAND" == 'move_to' ]; then
         move_card "$PARAM_1" "$PARAM_2"
+    elif [ "$COMMAND" == 'doing' ]; then
+        doing_card "$PARAM_1"
     elif [ -z "$COMMAND" ]; then
         member_boards
     else
